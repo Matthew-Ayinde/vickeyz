@@ -3,59 +3,76 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Award, Globe, Star, Music, Users, Sparkles } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const EnergyBeam = dynamic(() => import('@/components/ui/energy-beam'), {
+  ssr: false,
+})
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-        {/* Hero Section with Video Background */}
+        {/* Hero Section with Energy Beam Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
-          {/* Video Background Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background z-10" />
+          {/* Energy Beam Background - Behind everything */}
+          <div className="absolute inset-0 z-0">
+            <EnergyBeam className="opacity-70" />
+          </div>
+
+          {/* Gradient Overlay to ensure content readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background/50 z-10" />
           
-          {/* Simulated Video Background */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 animate-pulse" />
-            <div 
-              className="absolute inset-0 opacity-30"
-              style={{
-                backgroundImage: 'url(https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1920&q=80)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            />
+          {/* Additional subtle gradient for depth */}
+          <div className="absolute inset-0 z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
           </div>
 
           {/* Hero Content */}
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 1, delay: 5.3, ease: "easeOut" }}
             >
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 5.5, ease: "easeOut" }}
                 className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8"
               >
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-primary">Trusted by Dignitaries Worldwide</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-[family-name:var(--font-playfair)] mb-6 leading-tight">
+              <motion.h1 
+                className="text-5xl md:text-7xl lg:text-8xl font-bold font-[family-name:var(--font-playfair)] mb-6 leading-tight"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 5.7, ease: "easeOut" }}
+              >
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   Virtuoso Keyboard
                 </span>
                 <br />
                 <span className="text-foreground">Mastery</span>
-              </h1>
+              </motion.h1>
 
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+              <motion.p 
+                className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 5.9, ease: "easeOut" }}
+              >
                 Elevating the world&apos;s most prestigious events with decades of musical excellence. 
                 From intimate ceremonies to grand galas.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <motion.div 
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 6.1, ease: "easeOut" }}
+              >
                 <Link href="/booking">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -75,13 +92,13 @@ export default function Home() {
                     View Legacy
                   </motion.button>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Stats */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
+                transition={{ duration: 0.8, delay: 6.3, ease: "easeOut" }}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
               >
                 {[
@@ -92,9 +109,9 @@ export default function Home() {
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 6.5 + index * 0.15, ease: "easeOut" }}
                     className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border hover:border-primary transition-all"
                   >
                     <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
@@ -108,9 +125,12 @@ export default function Home() {
 
           {/* Scroll Indicator */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+            transition={{ 
+              opacity: { duration: 0.8, delay: 7 },
+              y: { duration: 2, repeat: Infinity, delay: 7.5, ease: "easeInOut" }
+            }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
           >
             <div className="w-6 h-10 border-2 border-primary rounded-full flex items-start justify-center p-2">
