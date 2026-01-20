@@ -3,11 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Award, Globe, Star, Music, Users, Sparkles } from 'lucide-react'
-import dynamic from 'next/dynamic'
-
-const EnergyBeam = dynamic(() => import('@/components/ui/energy-beam'), {
-  ssr: false,
-})
+import EnergyBeam from '@/components/ui/energy-beam'
 
 export default function Home() {
   return (

@@ -92,3 +92,53 @@ body {
 .skip-to-main:focus {
   top: 0;
 }
+
+/* Performance-optimized animations */
+@keyframes beam {
+  0%, 100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(10px, -20px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-beam {
+  animation: beam linear infinite;
+  will-change: transform, opacity;
+}
+
+.animate-float {
+  animation: float ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle at center, var(--tw-gradient-stops));
+}

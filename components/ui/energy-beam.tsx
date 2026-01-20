@@ -1,59 +1,47 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 interface EnergyBeamProps {
-    projectId?: string;
     className?: string;
 }
 
-declare global {
-    interface Window {
-        UnicornStudio?: any;
-    }
-}
-
 const EnergyBeam: React.FC<EnergyBeamProps> = ({
-    projectId = "hRFfUymDGOHwtFe7evR2",
     className = ""
 }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const scriptLoadedRef = useRef(false);
-
-    useEffect(() => {
-        const loadScript = () => {
-            if (scriptLoadedRef.current) return;
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.5.2/dist/unicornStudio.umd.js';
-            script.async = true;
-
-            script.onload = () => {
-                scriptLoadedRef.current = true;
-                if (window.UnicornStudio && containerRef.current) {
-                    console.log('Unicorn Studio loaded, initializing project...');
-                    // Initialize the Unicorn Studio project
-                    window.UnicornStudio.init();
-                }
-            };
-
-            document.head.appendChild(script);
-
-            return () => {
-                if (script.parentNode) {
-                    script.parentNode.removeChild(script);
-                }
-            };
-        };
-
-        loadScript();
-    }, [projectId]);
-
     return (
-        <div className={`relative w-full h-full ${className}`}>
-            <div
-                ref={containerRef}
-                data-us-project={projectId}
-                className="w-full h-full"
-            />
+        <div className={`relative w-full h-full overflow-hidden ${className}`}>
+            {/* Animated gradient beams */}
+            <div className="absolute inset-0 opacity-30">
+                {[...Array(12)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="absolute h-full w-1 bg-gradient-to-b from-transparent via-primary to-transparent animate-beam"
+                        style={{
+                            left: `${(i + 1) * 8.33}%`,
+                            animationDelay: `${i * 0.3}s`,
+                            animationDuration: `${3 + (i % 3)}s`,
+                        }}
+                    />
+                ))}
+            </div>
+            
+            {/* Radial glow effect */}
+            <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent animate-pulse-slow" />
+            
+            {/* Floating particles */}
+            <div className="absolute inset-0">
+                {[...Array(20)].map((_, i) => (
+                    <div
+                        key={`particle-${i}`}
+                        className="absolute w-1 h-1 bg-primary rounded-full animate-float"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 5}s`,
+                            animationDuration: `${5 + Math.random() * 10}s`,
+                        }}
+                    />
+                ))}
+            </div>
         </div>
     );
 };
